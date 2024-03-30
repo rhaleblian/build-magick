@@ -11,5 +11,5 @@ steps:
 - task: ContainerBuild@0
   inputs:
     dockerRegistryServiceConnection: 'yoyodyne'
-    repository: 'shotgunEvents'
+    repository: 'imagemagick'
     Dockerfile: 'Dockerfile'
