@@ -6,10 +6,10 @@
 trigger:
 - main
 
-pool:
-  vmImage: centos:7
-
 steps:
-- script: |
-  ls
-  pwd
+
+- task: ContainerBuild@0
+  inputs:
+    dockerRegistryServiceConnection: 'yoyodyne'
+    repository: 'shotgunEvents'
+    Dockerfile: 'Dockerfile'
