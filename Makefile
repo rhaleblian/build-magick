@@ -19,6 +19,6 @@ ImageMagick:
 	(cd ImageMagick && git checkout 7.0.8-68)
 
 /usr/bin/autoconf:
-	sudo yum install autoconf
+	yum install autoconf
 
 .PHONY=default configure clean
