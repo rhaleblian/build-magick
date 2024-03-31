@@ -1,16 +1,40 @@
- trigger:
- - main
+trigger:
+  - main
 
- pool:
-   vmImage: 'ubuntu-latest' 
+pool:
+  vmImage: 'ubuntu-latest' 
 
- variables:
-   imageName: 'pipelines-javascript-docker'
+variables:
+  # imageName: 'pipelines-javascript-docker'
+  vmImageName: 'ubuntu-latest'
+  imageRepository: imagemagick
+  dockerFilePath: Dockerfile
+  dockerRegistryServiceConnection: yoyodyne
+  tag: latest
 
- steps:
- - task: Docker@2
-   displayName: Build an image
-   inputs:
-     repository: $(imageName)
-     command: build
-     Dockerfile: Dockerfile
+# steps:
+#  - task: Docker@2
+#    displayName: Build an image
+#    inputs:
+#      repository: $(imageName)
+#      command: build
+#      Dockerfile: Dockerfile
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:  
+  - job: Build
+    displayName: Build job
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
