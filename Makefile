@@ -1,9 +1,9 @@
 PREFIX := /opt/sgsco
 
 default: configure
-	make -j 4 -C ImageMagick
+	make -C ImageMagick -j 4
 
-configure: /usr/bin/autoconf ImageMagick
+configure: ImageMagick
 	( \
 	cd ImageMagick \
 	&& ./configure \
@@ -11,14 +11,19 @@ configure: /usr/bin/autoconf ImageMagick
 	--prefix=${PREFIX} \
 	)
 
+install-deps:
+	yum install -y git make gcc-c++
+
+install:
+	make -C ImageMagick install
+
 clean:
 	make -C ImageMagick clean
 
+.PHONY=default configure install-deps clean
+
+
 ImageMagick:
-	git clone https://github.com/ImageMagick/ImageMagick.git
-	(cd ImageMagick && git checkout 7.0.8-68)
+	git clone https://github.com/ImageMagick/ImageMagick.git -b 7.0.8-68
+	#(cd ImageMagick && git checkout 7.0.8-68)
 
-/usr/bin/autoconf:
-	yum install -y autoconf
-
-.PHONY=default configure clean
