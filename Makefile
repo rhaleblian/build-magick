@@ -11,9 +11,6 @@ configure: ImageMagick
 	--prefix=${PREFIX} \
 	)
 
-install-deps:
-	yum install -y git make gcc-c++
-
 install:
 	make -C ImageMagick install
 
@@ -25,5 +22,4 @@ clean:
 
 ImageMagick:
 	git clone https://github.com/ImageMagick/ImageMagick.git -b 7.0.8-68
-	#(cd ImageMagick && git checkout 7.0.8-68)
 
