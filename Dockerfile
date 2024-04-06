@@ -1,4 +1,4 @@
-FROM rockylinux:9
+FROM centos:7
 WORKDIR /root
 RUN yum install -y autoconf gcc-c++ git make zip
 COPY Makefile .
