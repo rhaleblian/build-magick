@@ -1,11 +1,8 @@
 # build-magick
 
-Build ImageMagick 7.0.8 on CentOS 7.
+Builds ImageMagick 7.0.8 in a CentOS 7 container.
 
-    make
-    sudo make install
+    docker buildx build . -t magick
+    docker run -d -it --name magick bash
+    docker cp magick:/root/magick.tar.gz .
 
-With Docker,
-
-    docker buildx build . -t build-magick
-    docker run build-magick
