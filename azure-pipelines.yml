@@ -7,7 +7,7 @@ pool:
 variables:
   # imageName: 'pipelines-javascript-docker'
   vmImageName: 'ubuntu-latest'
-  imageRepository: imagemagick
+  imageRepository: build-magick
   dockerFilePath: Dockerfile
   dockerRegistryServiceConnection: yoyodyne
   tag: latest
