@@ -14,12 +14,17 @@ configure: ImageMagick
 install:
 	make -C ImageMagick install
 
+tarball: opt-sgsco-magick.tar.gz
+
 clean:
 	make -C ImageMagick clean
 
-.PHONY=default configure install-deps clean
+.PHONY=default configure install-deps tarball clean
 
 
 ImageMagick:
 	git clone https://github.com/ImageMagick/ImageMagick.git -b 7.0.8-68
 
+opt-sgsco-magick.tar.gz:
+	# Dereferencing symlinks so SMB installations work
+	RUN tar -h -cvzf ./opt-sgsco-magick.tar.gz /opt/sgsco
