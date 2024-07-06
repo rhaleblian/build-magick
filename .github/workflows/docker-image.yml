@@ -1,0 +1,38 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "2-release-to-github" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build ImageMagick using a Rocky image
+      run: docker build . --file Dockerfile --tag build-magick
+
+    - name: Inspect installation
+      run: |
+        docker run --rm build-magick find /opt/sgsco
+        docker run --rm build-magick /opt/sgsco/bin/magick --help
+
+    - name: Rescue the tarball from the container
+      run: |
+        docker run -d --name build-magick build-magick sleep 4
+        docker cp build-magick:/root/opt-sgsco-magick.tar.gz .
+        tar tf ./opt-sgsco-magick.tar.gz
+
+    - name: Release the tarball
+      uses: ncipollo/release-action@v1.14.0
+      with:
+        artifacts: "./opt-sgsco-magick.tar.gz"
+        tag: 7.0.8
