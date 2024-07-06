@@ -27,4 +27,4 @@ ImageMagick:
 
 opt-sgsco-magick.tar.gz:
 	# Dereferencing symlinks so SMB installations work
-	RUN tar -h -cvzf ./opt-sgsco-magick.tar.gz /opt/sgsco
+	tar -h -cvzf ./opt-sgsco-magick.tar.gz /opt/sgsco
