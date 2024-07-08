@@ -31,8 +31,8 @@ jobs:
         docker cp build-magick:/root/opt-sgsco-magick.tar.gz .
         tar tf ./opt-sgsco-magick.tar.gz
 
-    - name: Release the tarball
-      uses: ncipollo/release-action@v1.14.0
-      with:
-        artifacts: "./opt-sgsco-magick.tar.gz"
-        tag: 7.0.8
+    # - name: Release the tarball
+    #   uses: ncipollo/release-action@v1.14.0
+    #   with:
+    #     artifacts: "./opt-sgsco-magick.tar.gz"
+    #     tag: 7.0.8
