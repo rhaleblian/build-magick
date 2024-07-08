@@ -2,31 +2,22 @@ trigger:
   - main
 
 pool:
-  vmImage: 'ubuntu-latest' 
+  name: Default
 
 variables:
-  # imageName: 'pipelines-javascript-docker'
   vmImageName: 'ubuntu-latest'
   imageRepository: build-magick
   dockerFilePath: Dockerfile
-  dockerRegistryServiceConnection: yoyodyne
+  dockerRegistryServiceConnection: rayhaleblian.azurecr.io
   tag: latest
 
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:  
-  - job: Build
-    displayName: Build job
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+steps:
+- task: Docker@2
+  displayName: Build image
+  inputs:
+    command: build
+    # repository: $(imageRepository)
+    dockerfile: $(dockerfilePath)
+    # containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      $(tag)
